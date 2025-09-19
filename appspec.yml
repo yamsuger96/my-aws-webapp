@@ -1,10 +1,19 @@
+# appspec.yml
 version: 0.0
 os: linux
 files:
+  # 這一段告訴 CodeDeploy：
+  # 把倉庫根目錄下的 index.html 這個檔案 (source)
+  # 複製到 EC2 主機的 /usr/share/nginx/html/ 這個路徑下 (destination)
   - source: /index.html
     destination: /usr/share/nginx/html/
 hooks:
+  # 這一段是「生命週期掛鉤」，告訴 CodeDeploy 在部署的不同階段要做什麼事
+  # ApplicationStart 階段 (表示檔案都複製完成後)
   ApplicationStart:
+    # 執行 scripts 資料夾下的 start_server.sh 這個腳本
     - location: scripts/start_server.sh
+      # 如果腳本執行超過 300 秒就算失敗
       timeout: 300
+      # 用 root 權限來執行
       runas: root
