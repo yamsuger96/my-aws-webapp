@@ -8,6 +8,10 @@ files:
   - source: /index.html
     destination: /usr/share/nginx/html/
 hooks:
+  BeforeInstall:
+    - location: scripts/cleanup.sh
+      timeout: 300
+      runas: root
   # 這一段是「生命週期掛鉤」，告訴 CodeDeploy 在部署的不同階段要做什麼事
   # ApplicationStart 階段 (表示檔案都複製完成後)
   ApplicationStart:
