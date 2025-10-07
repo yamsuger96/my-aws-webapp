@@ -4,4 +4,3 @@ if ! systemctl is-active --quiet nginx; then
     systemctl start nginx
 fi
 systemctl enable nginx
-Commit and Push
